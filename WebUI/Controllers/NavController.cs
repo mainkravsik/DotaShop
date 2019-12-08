@@ -16,14 +16,17 @@ namespace WebUI.Controllers
             repository = repo;
         }
 
-        public PartialViewResult Menu(string category = null)
+        public PartialViewResult Menu(string category = null, bool horizontalNav = false)
         {
             ViewBag.SelectedCategory = category;
+
             IEnumerable<string> categories = repository.Items
-                .Select(item => item.Category)
+                .Select(game => game.Category)
                 .Distinct()
                 .OrderBy(x => x);
-            return PartialView(categories);
+
+            string viewName = horizontalNav ? "MenuHorizontal" : "Menu";
+            return PartialView(viewName, categories);
         }
     }
 }
