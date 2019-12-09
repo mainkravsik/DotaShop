@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<string>
 
 @Html.ActionLink("Домой", "List", "Item", null,
-    new { @class = "btn btn-block btn-default btn-lg" })
+    new { @class = "btn btn-block btn-default btn-lg", @style = "background-image: url('../../Images/courier.png') ;background-position: right; background-size: contain;  background-repeat: no-repeat"})
 
 @foreach (var link in Model)
 {
@@ -12,8 +12,8 @@
         category = link,
         page = 1
     }, new
-    {
+    {   @style = "background-image: url('../../Images/courier.png') ;background-position: right; background-size: contain;  background-repeat: no-repeat",
         @class = "btn btn-block btn-default btn-lg"
             + (link == ViewBag.SelectedCategory ? " btn-primary" : "")
-    })
+    });
 }

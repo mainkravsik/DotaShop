@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System;
+using System.IO;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
 using Domain.Abstract;
@@ -16,7 +18,7 @@ namespace Domain.Concrete
         public string ServerName = "smtp.example.com";
         public int ServerPort = 587;
         public bool WriteAsFile = true;
-        public string FileLocation = @"D:\Prog_scrap\DotaShop\Emails";
+        public string FileLocation = @"D:\Prog_scrap\DotaShop\Emails\mails.txt";
     }
 
     public class EmailOrderProcessor : IOrderProcessor
@@ -55,8 +57,8 @@ namespace Domain.Concrete
                 foreach (var line in cart.Lines)
                 {
                     var subtotal = line.Item.Price * line.Quantity;
-                    body.AppendFormat("{0} x {1} (итого: {2:c}",
-                        line.Quantity, line.Item.Name, subtotal);
+                    body.AppendFormat("{0} x {1} (итого: {2:c}){3}",
+                        line.Quantity, line.Item.Name, subtotal, '\n');
                 }
 
                 body.AppendFormat("Общая стоимость: {0:c}", cart.ComputeTotalValue())
@@ -81,6 +83,11 @@ namespace Domain.Concrete
                 if (emailSettings.WriteAsFile)
                 {
                     mailMessage.BodyEncoding = Encoding.UTF8;
+                    string str = Convert.ToString(body);
+                    StreamWriter sw = new StreamWriter(emailSettings.FileLocation, true);
+                    sw.Write(str); sw.Write('\n');
+                    sw.Close();
+                    
                 }
 
                 /*smtpClient.Send(mailMessage);*/

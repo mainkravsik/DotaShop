@@ -4,32 +4,32 @@
     ViewBag.Title = "DotaShop: форма заказа";
 }
 
-<h2>Оформить заказ сейчас</h2>
-<p>Пожалуйста введи ваши контактные данные, и мы сразу отправим товар!</p>
+<h2 style="color: white">Оформить заказ сейчас</h2>
+<p style="color: white">Пожалуйста введи ваши контактные данные, и мы сразу отправим товар!</pstyle="color:>
 
 
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary();
-    <h3>Данные</h3>
-    <div class="form-group">
+    <h3 style="color: white">Данные</h3>
+    <div class="form-group"; style="color: white">
         <label>Ваше имя:</label>
         @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
     </div>
 
-    <h3>Адрес доставки</h3>
+    <h3 style="color: white">Адрес доставки</h3>
     foreach (var property in ViewData.ModelMetadata.Properties)
     {
         if (property.PropertyName != "Name" && property.PropertyName != "GiftWrap")
         {
-            <div class="form-group">
+            <div class="form-group"; style="color: white">
                 <label>@(property.DisplayName ?? property.PropertyName)</label>
                 @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
             </div>
         }
     }
-    <h3>Опции</h3>
-    <div class="checkbox">
+    <h3 style="color: white">Опции</h3>
+    <div class="checkbox"; style="color: white">
         <label>
             @Html.EditorFor(x => x.GiftWrap)
             В доту пошли??

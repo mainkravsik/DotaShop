@@ -1,6 +1,35 @@
 ﻿@model Domain.Entities.Item
 
-    <div class="well">
+    <div style="background-image: url('../../Images/gold_creep.png') ;background-position: right; background-size: contain;  background-repeat: no-repeat" class="hidden-xs well">
+        @if (Model.ImageData != null)
+        {
+            <div  class="pull-left" style="margin-right: 10px">
+                <img class="img-thumbnail" width="75" height="75"
+                     src="@Url.Action("GetImage", "Item",
+                new { Model.ItemId })" />
+            </div>
+        }
+        <h3>
+            <h3>
+                <strong>@Model.Name</strong>
+                <span class="pull-right label label-primary">@Model.Price.ToString("# руб")</span>
+            </h3>
+
+            @using (Html.BeginForm("AddToCart", "Cart"))
+            {
+                <div class="pull-right">
+                    @Html.HiddenFor(x => x.ItemId)
+                    @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                    <input type="submit" class="btn btn-success" value="Добавить" />
+                </div>
+            }
+            <p class="lead" style="color:black; font: bold 24px trojan; text-align: justify">@Model.Description</p>
+
+
+        </h3>
+
+    </div>
+    <div class="visible-xs well">
         @if (Model.ImageData != null)
         {
             <div class="pull-left" style="margin-right: 10px">
@@ -23,7 +52,7 @@
                     <input type="submit" class="btn btn-success" value="Добавить" />
                 </div>
             }
-            <span class="lead" style="color:darkorchid; font: bold 24px arial verdana">@Model.Description</span>
+            <p class="lead" style="color:black; font: bold 24px trojan; text-align: justify; margin-right:0px; margin-top:55px">@Model.Description</p>
 
 
         </h3>
